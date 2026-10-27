@@ -189,7 +189,7 @@ export default function RecipeEditor() {
   const { cost, price } = live;
   const usedIn = !isNew ? items.filter((i) => i.sub_recipe_id === form.id).map((i) => recById.get(i.recipe_id)).filter(Boolean) as Recipe[] : [];
   const fcPct = price.foodCostPct;
-  const meterColor = fcPct == null ? 'var(--sky)' : fcPct <= form.target_food_cost ? 'var(--mint-ink)' : fcPct <= form.target_food_cost + 5 ? '#d08a3a' : 'var(--rose-ink)';
+  const meterColor = fcPct == null ? 'var(--line)' : fcPct <= form.target_food_cost ? 'var(--ok)' : fcPct <= form.target_food_cost + 5 ? 'var(--warn)' : 'var(--bad)';
 
   return (
     <>
@@ -223,7 +223,10 @@ export default function RecipeEditor() {
               <div>
                 <div className="muted small">Food cost (στόχος {form.target_food_cost}%)</div>
                 <div style={{ fontSize: '1.3rem', fontWeight: 700 }}>{pct(fcPct)}</div>
-                <div className="meter"><div style={{ width: `${Math.min(100, (fcPct ?? 0) * 2)}%`, background: meterColor }} /></div>
+                <div className="meter" title={`Στόχος ${form.target_food_cost}%`}>
+                  <div style={{ width: `${Math.min(100, (fcPct ?? 0) * 2)}%`, background: meterColor }} />
+                  <i style={{ left: `${Math.min(100, Number(form.target_food_cost) * 2)}%` }} />
+                </div>
               </div>
               <div>
                 <div className="muted small">Μικτό κέρδος / μερίδα</div>

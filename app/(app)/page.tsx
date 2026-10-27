@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useStore } from '@/lib/store';
-import { costRecipe, eur, pricing } from '@/lib/costing';
+import { costRecipe, eur, pct, pricing } from '@/lib/costing';
 import { FoodCostBadge } from '@/components/Shell';
 
 type SortKey = 'name' | 'fc' | 'margin';
@@ -53,11 +53,11 @@ export default function Dashboard() {
 
       <div className="grid-stats">
         <div className="stat"><div className="label">Πιάτα</div><div className="value">{rows.length}</div></div>
-        <div className="stat"><div className="label">Μέσο food cost</div><div className="value">{avg == null ? '—' : `${avg.toFixed(1)}%`}</div></div>
-        <div className="stat" style={over ? { background: 'var(--rose)' } : undefined}>
+        <div className="stat"><div className="label">Μέσο food cost</div><div className="value">{pct(avg)}</div></div>
+        <div className={`stat ${over ? 'stat-bad' : ''}`}>
           <div className="label">Πάνω από τον στόχο</div><div className="value">{over}</div>
         </div>
-        <div className="stat" style={noPrice ? { background: 'var(--peach)' } : undefined}>
+        <div className={`stat ${noPrice ? 'stat-warn' : ''}`}>
           <div className="label">Υλικά χωρίς τιμή</div><div className="value">{noPrice}</div>
         </div>
       </div>

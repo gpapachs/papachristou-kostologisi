@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { usernameToEmail } from '@/lib/auth';
 import { APP_VERSION } from '@/lib/version';
+import { BrandMark } from '@/components/Shell';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function LoginPage() {
     <div className="auth-wrap">
       <form className="card auth-card" onSubmit={submit}>
         <div className="brand">
-          <div className="brand-mark">€</div>
+          <BrandMark />
           <div><b>Κοστολόγηση</b><span>Ψητοπωλείο Παπαχρήστου</span></div>
         </div>
         <div style={{ display: 'grid', gap: 12, marginTop: 8 }}>
